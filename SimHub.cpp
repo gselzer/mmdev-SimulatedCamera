@@ -5,6 +5,7 @@
 
 #include "SimCam.h"
 #include "SimFocus.h"
+#include "SimLamp.h"
 #include "SimObjectiveTurret.h"
 #include "SimShutter.h"
 #include "SimXY.h"
@@ -16,5 +17,6 @@ int SimHub::DetectInstalledDevices() {
     AddInstalledDevice(new SimObjectiveTurret("SimObjectiveTurret"));
     AddInstalledDevice(new SimXY<AsyncProcessModel<2>>("SimXY"));
     AddInstalledDevice(new SimShutter("SimShutter"));
+    AddInstalledDevice(new SimLamp("SimLamp"));
     return DEVICE_OK;
 }

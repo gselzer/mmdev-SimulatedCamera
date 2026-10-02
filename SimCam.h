@@ -328,7 +328,8 @@ class SimCam : public CCameraBase<SimCam> {
         const double y = fovCenterY - umPerPx * (double(s.roiY) -
                                                  double(sensorHeight_) / 2.0);
         // Derive intensity using epi-illumination formula
-        const double intensity = 2800.0 * s.exposure_ms * GetBinning() *
+        const double intensity = 2800.0 * hub_->GetLampIntensity() / 100.0 *
+                                 s.exposure_ms * GetBinning() *
                                  GetBinning() * (na * na * na * na) /
                                  (magnification * magnification);
         const float *signal = nullptr;

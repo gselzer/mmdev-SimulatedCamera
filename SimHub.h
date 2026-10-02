@@ -24,6 +24,7 @@ class SimHub : public HubBase<SimHub> {
     std::function<double()> getMagnificationFunc_ = [] { return 1.0; };
     std::function<double()> getNAFunc_ = [] { return 1.0; };
     std::function<bool()> getShutterOpenFunc_ = [] { return true; };
+    std::function<double()> getLampIntensityFunc_ = [] { return 100.0; };
 
   public:
     explicit SimHub(std::string name) : name_(std::move(name)) {}
@@ -61,6 +62,11 @@ class SimHub : public HubBase<SimHub> {
         getShutterOpenFunc_ = std::move(f);
     }
 
+    template <typename F> void SetGetLampIntensityFunction(F f) {
+        std::lock_guard<std::mutex> lock(mut_);
+        getLampIntensityFunc_ = std::move(f);
+    }
+
     double GetFocusUm() {
         std::lock_guard<std::mutex> lock(mut_);
         return getFocusUmFunc_();
@@ -80,5 +86,9 @@ class SimHub : public HubBase<SimHub> {
     bool IsShutterOpen() {
         std::lock_guard<std::mutex> lock(mut_);
         return getShutterOpenFunc_();
+    }
+    double GetLampIntensity() {
+        std::lock_guard<std::mutex> lock(mut_);
+        return getLampIntensityFunc_();
     }
 };

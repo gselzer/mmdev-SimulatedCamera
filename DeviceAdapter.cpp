@@ -4,6 +4,7 @@
 #include "SimCam.h"
 #include "SimFocus.h"
 #include "SimHub.h"
+#include "SimLamp.h"
 #include "SimObjectiveTurret.h"
 #include "SimShutter.h"
 #include "SimXY.h"
@@ -37,6 +38,9 @@ MODULE_API MM::Device *CreateDevice(const char *name) {
     }
     if (n == "SimShutter") {
         return new SimShutter("SimShutter");
+    }
+    if (n == "SimLamp") {
+        return new SimLamp("SimLamp");
     }
     return nullptr;
 }
